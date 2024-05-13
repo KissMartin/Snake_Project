@@ -1,0 +1,17 @@
+Test Cases:
+
+Game End:
+- End the game when the snake hits the wall
+- End the game when the snake hits his own tail when the length of the snake is greater than 5
+- End the game with a win when the player reaches the maximum amount of points (apples)
+- At the end of the game updates the highscore if the score is bigger than the current highscore
+
+Game start:
+- Spawns the player at the correct position
+- There's always x amount of apples (depends on the option that the player chooses), within 0.5 seconds so its always respawns
+
+Gameplay:
+- Detect if the snake responds correctly to all the different inputs and input combinations
+- Detect if the snake functions correctly, meaning it gathers the apple and increments its length by 1
+- Detect if the snake's length gets incremented and the new body part spawns at the tail not the head
+
