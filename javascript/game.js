@@ -10,7 +10,35 @@ function delay(mennyi) {
 let kigyo = [400, 500, 400, 450, 400, 400, 400, 350];
 let hossz = 4;
 
+let alma = [];
+let kigyoNo = false;
+
+function almaGen(){
+    let almaX = 0;
+    let almaY = 0;
+    let kigyoX = [];
+    let kigyoY = [];
+
+    let seged = true;
+    kigyo.forEach(e => {
+        if(seged) {
+            seged = false;
+            kigyoX.push(e/50);
+        }
+        else kigyoY.push(e/50);
+    });
+
+    while(almaX == 0 || kigyoX.includes(almaX)) almaX = Math.floor(Math.random() * 16);
+    while(almaY == 0 || kigyoY.includes(almaY)) almaY = Math.floor(Math.random() * 16);
+    alma[0] = almaX*50;
+    alma[1] = almaY*50;
+
+    context.fillStyle = "red";
+    context.fillRect(alma[0], alma[1], 50, 50);
+}
+
 function KigyoFill(){
+    context.fillStyle = "black";
     for(let i = 0; i < hossz*2; i += 2){
         context.fillRect(kigyo[i], kigyo[i+1], 50, 50);
     }
@@ -40,18 +68,30 @@ async function Jatek(){
             xIrany = -50;
             yIrany = 0;
         };
-    
-        kigyo.push(kigyo[(hossz*2)-2]+xIrany);
-        kigyo.push(kigyo[(hossz*2)-1]+yIrany);
 
-        context.clearRect(kigyo[0], kigyo[1], 50, 50);
+        if(alma[0] == kigyo[(hossz*2)-2]+xIrany && alma[1] == kigyo[(hossz*2)-1]+yIrany){
+            kigyoNo = true;
+            hossz++;
+            kigyo.push(alma[0]);
+            kigyo.push(alma[1]);
+            almaGen();
+        }
+        else{
+            kigyo.push(kigyo[(hossz*2)-2]+xIrany);
+            kigyo.push(kigyo[(hossz*2)-1]+yIrany);
+        }
     
-        context.beginPath();
-        context.strokeStyle = 'black';
-        context.rect(kigyo[0], kigyo[1], 50, 50);
-        context.stroke();
+        if(kigyoNo) kigyoNo = false;
+        else {
+            context.clearRect(kigyo[0], kigyo[1], 50, 50);
     
-        kigyo.splice(0,2);
+            context.beginPath();
+            context.strokeStyle = 'black';
+            context.rect(kigyo[0], kigyo[1], 50, 50);
+            context.stroke();
+            
+            kigyo.splice(0,2)
+        };
         KigyoFill();
     }
 }
@@ -72,3 +112,4 @@ document.addEventListener('keydown', function(e) {
 });
 
 Jatek();
+almaGen();
