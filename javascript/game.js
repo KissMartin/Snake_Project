@@ -1,6 +1,8 @@
 var canvas = document.getElementById('gameCanvas');
 var context = canvas.getContext('2d');
+let halalKiir = document.querySelector('.halalKiir');
 let jatek = true;
+let voltInput = false;
 let irany = "fel";
 
 function delay(mennyi) {
@@ -69,7 +71,28 @@ async function Jatek(){
             yIrany = 0;
         };
 
-        if(alma[0] == kigyo[(hossz*2)-2]+xIrany && alma[1] == kigyo[(hossz*2)-1]+yIrany){
+        let kovX = kigyo[(hossz*2)-2]+xIrany;
+        let kovY = kigyo[(hossz*2)-1]+yIrany;
+        let kigyoX = [];
+        let kigyoY = [];
+    
+        let seged = true;
+        kigyo.forEach(e => {
+            if(seged) {
+                seged = false;
+                kigyoX.push(e);
+            }
+            else kigyoY.push(e);
+        });
+
+        //halal
+        if(kovX == 0 || kovX == 800 || kovY == 0 || kovY == 800 || (kigyoX.includes(kovX) && kigyoY.includes(kovY))){
+            halalKiir.innerHTML = "Meghaltál!";
+            jatek = false;
+        }
+
+        //alma
+        if(alma[0] == kovX && alma[1] == kovY){
             kigyoNo = true;
             hossz++;
             kigyo.push(alma[0]);
@@ -77,8 +100,8 @@ async function Jatek(){
             almaGen();
         }
         else{
-            kigyo.push(kigyo[(hossz*2)-2]+xIrany);
-            kigyo.push(kigyo[(hossz*2)-1]+yIrany);
+            kigyo.push(kovX);
+            kigyo.push(kovY);
         }
     
         if(kigyoNo) kigyoNo = false;
@@ -93,21 +116,26 @@ async function Jatek(){
             kigyo.splice(0,2)
         };
         KigyoFill();
+        voltInput = false;
     }
 }
 
 document.addEventListener('keydown', function(e) {
-    if (e.key == 'ArrowLeft' && irany != "jobb") {
+    if (e.key == 'ArrowLeft' && irany != "jobb" && !voltInput) {
         irany = "bal";
+        voltInput = true;
     }
-    else if (e.key == 'ArrowDown' && irany != "fel") {
+    else if (e.key == 'ArrowDown' && irany != "fel" && !voltInput) {
         irany = "le";
+        voltInput = true;
     }
-    else if (e.key == 'ArrowRight' && irany != "bal") {
+    else if (e.key == 'ArrowRight' && irany != "bal" && !voltInput) {
         irany = "jobb";
+        voltInput = true;
     }
-    else if (e.key == 'ArrowUp' && irany != "le") {
+    else if (e.key == 'ArrowUp' && irany != "le" && !voltInput) {
         irany = "fel";
+        voltInput = true;
     }
 });
 
