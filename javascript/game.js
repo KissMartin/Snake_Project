@@ -4,6 +4,8 @@ let halalKiir = document.querySelector('.halalKiir');
 let jatek = true;
 let voltInput = false;
 let irany = "fel";
+let score = 0;
+let scoreKiir = document.querySelector('#score');
 
 function delay(mennyi) {
     return new Promise(resolve => setTimeout(resolve, mennyi));
@@ -27,7 +29,10 @@ function almaGen(){
             seged = false;
             kigyoX.push(e/50);
         }
-        else kigyoY.push(e/50);
+        else {
+            seged = true;
+            kigyoY.push(e/50);
+        };
     });
 
     while(almaX == 0 || kigyoX.includes(almaX)) almaX = Math.floor(Math.random() * 16);
@@ -82,13 +87,26 @@ async function Jatek(){
                 seged = false;
                 kigyoX.push(e);
             }
-            else kigyoY.push(e);
+            else{
+                seged = true;
+                kigyoY.push(e);
+            };
         });
 
         //halal
-        if(kovX == 0 || kovX == 800 || kovY == 0 || kovY == 800 || (kigyoX.includes(kovX) && kigyoY.includes(kovY))){
+        if(kovX == 0 || kovX == 800 || kovY == 0 || kovY == 800){
             halalKiir.innerHTML = "Meghaltál!";
             jatek = false;
+        }
+        if(kigyoX.includes(kovX)){
+            let index = 0;
+            kigyoX.forEach(e => {
+                if(kovX == e && kovY == kigyoY[index]){
+                    halalKiir.innerHTML = "Meghaltál!";
+                    jatek = false;
+                }
+                index++;
+            });
         }
 
         //alma
@@ -97,6 +115,8 @@ async function Jatek(){
             hossz++;
             kigyo.push(alma[0]);
             kigyo.push(alma[1]);
+            score++;
+            scoreKiir.innerHTML = score;
             almaGen();
         }
         else{
@@ -116,6 +136,7 @@ async function Jatek(){
             kigyo.splice(0,2)
         };
         KigyoFill();
+
         voltInput = false;
     }
 }
