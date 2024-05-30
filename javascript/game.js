@@ -3,6 +3,10 @@ var context = canvas.getContext('2d');
 let halalKiir = document.querySelector('.halalKiir');
 let jatekGomb = document.querySelector('.jatekGomb');
 window.jatek = true;
+let hossz = 4;
+window.almaMax = (canvas.width/50) * (canvas.height/50) - hossz;
+let felvettAlmak = 0;
+console.log(almaMax)
 let voltInput = false;
 let irany = "fel";
 let neFill = false;
@@ -14,14 +18,13 @@ function delay(mennyi) {
 }
 
 window.kigyo = [400, 500, 400, 450, 400, 400, 400, 350];
-let hossz = 4;
 
 
 
 window.alma = [];
 let kigyoNo = false;
 
-function almaGen(){
+function almaGen(inputX = null, inputY = null){
     let almaX = -1;
     let almaY = -1;
     let kigyoX = [];
@@ -36,8 +39,14 @@ function almaGen(){
         else kigyoY.push(e/50);
     });
 
-    while(almaX < 0 || kigyoX.includes(almaX)) almaX = Math.floor(Math.random() * 17);
-    while(almaY < 0 || kigyoY.includes(almaY)) almaY = Math.floor(Math.random() * 17);
+    if(inputX == null || inputY == null){
+        while(almaX < 0 || kigyoX.includes(almaX)) almaX = Math.floor(Math.random() * 17);
+        while(almaY < 0 || kigyoY.includes(almaY)) almaY = Math.floor(Math.random() * 17);
+    }
+    else{
+        almaX = inputX;
+        almaY = inputY;
+    }
     window.alma[0] = almaX*50;
     window.alma[1] = almaY*50;
 
@@ -133,6 +142,7 @@ async function Jatek(){
             window.kigyo.push(window.alma[1]);
             score++;
             scoreKiir.innerHTML = score;
+            felvettAlmak++;
             almaGen();
         }
 
@@ -155,6 +165,10 @@ async function Jatek(){
             }
         };
         if(window.jatek && !neFill) KigyoFill();
+
+        if(almaMax == felvettAlmak){
+            halalKiir.innerHTML = "Nyertél";
+        }
 
         voltInput = false;
     }
