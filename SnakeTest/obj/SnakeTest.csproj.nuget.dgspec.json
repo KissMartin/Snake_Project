@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\___Prog\\11A_Kiss_Martin\\Web\\_Dogák_Projektek\\Snake_Project\\SnakeTest\\SnakeTest.csproj": {}
+    "C:\\Users\\Martin\\Documents\\___Prog\\Github projects\\Snake_Project\\SnakeTest\\SnakeTest.csproj": {}
   },
   "projects": {
-    "Z:\\___Prog\\11A_Kiss_Martin\\Web\\_Dogák_Projektek\\Snake_Project\\SnakeTest\\SnakeTest.csproj": {
+    "C:\\Users\\Martin\\Documents\\___Prog\\Github projects\\Snake_Project\\SnakeTest\\SnakeTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\___Prog\\11A_Kiss_Martin\\Web\\_Dogák_Projektek\\Snake_Project\\SnakeTest\\SnakeTest.csproj",
+        "projectUniqueName": "C:\\Users\\Martin\\Documents\\___Prog\\Github projects\\Snake_Project\\SnakeTest\\SnakeTest.csproj",
         "projectName": "SnakeTest",
-        "projectPath": "Z:\\___Prog\\11A_Kiss_Martin\\Web\\_Dogák_Projektek\\Snake_Project\\SnakeTest\\SnakeTest.csproj",
-        "packagesPath": "C:\\Users\\kiss.martin2\\.nuget\\packages\\",
-        "outputPath": "Z:\\___Prog\\11A_Kiss_Martin\\Web\\_Dogák_Projektek\\Snake_Project\\SnakeTest\\obj\\",
+        "projectPath": "C:\\Users\\Martin\\Documents\\___Prog\\Github projects\\Snake_Project\\SnakeTest\\SnakeTest.csproj",
+        "packagesPath": "C:\\Users\\Martin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Martin\\Documents\\___Prog\\Github projects\\Snake_Project\\SnakeTest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\kiss.martin2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Martin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -61,6 +61,10 @@
               "target": "Package",
               "version": "[125.0.6422.7800, )"
             },
+            "WebDriverManager": {
+              "target": "Package",
+              "version": "[2.17.2, )"
+            },
             "coverlet.collector": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -94,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
