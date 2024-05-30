@@ -2,7 +2,7 @@ var canvas = document.getElementById('gameCanvas');
 var context = canvas.getContext('2d');
 let halalKiir = document.querySelector('.halalKiir');
 let jatekGomb = document.querySelector('.jatekGomb');
-let jatek = true;
+window.jatek = true;
 let voltInput = false;
 let irany = "fel";
 let neFill = false;
@@ -13,12 +13,12 @@ function delay(mennyi) {
     return new Promise(resolve => setTimeout(resolve, mennyi));
 }
 
-let kigyo = [400, 500, 400, 450, 400, 400, 400, 350];
+window.kigyo = [400, 500, 400, 450, 400, 400, 400, 350];
 let hossz = 4;
 
 
 
-let alma = [];
+window.alma = [];
 let kigyoNo = false;
 
 function almaGen(){
@@ -28,7 +28,7 @@ function almaGen(){
     let kigyoY = [];
 
     let seged = true;
-    kigyo.forEach(e => {
+    window.kigyo.forEach(e => {
         if(seged) {
             seged = false;
             kigyoX.push(e/50);
@@ -38,68 +38,12 @@ function almaGen(){
 
     while(almaX < 0 || kigyoX.includes(almaX)) almaX = Math.floor(Math.random() * 17);
     while(almaY < 0 || kigyoY.includes(almaY)) almaY = Math.floor(Math.random() * 17);
-    alma[0] = almaX*50;
-    alma[1] = almaY*50;
+    window.alma[0] = almaX*50;
+    window.alma[1] = almaY*50;
 
     context.fillStyle = "red";
-    context.fillRect(alma[0], alma[1], 50, 50);
+    context.fillRect(window.alma[0], window.alma[1], 50, 50);
 }
-
-// function almaGen(){
-//     if(elsoAlma) almakSzama = document.querySelector('#almakSzama').value;
-//     else almakSzama = 1;
-//     elsoAlma = false;
-//     for (let i = 0; i < almakSzama; i++) {
-//         let almaX = -1;
-//         let almaY = -1;
-//         let kigyoX = [];
-//         let kigyoY = [];
-    
-//         let seged = true;
-//         kigyo.forEach(e => {
-//             if(seged) {
-//                 seged = false;
-//                 kigyoX.push(e/50);
-//             }
-//             else {
-//                 seged = true;
-//                 kigyoY.push(e/50);
-//             };
-//         });
-
-//         let ujra = true;
-//         while(almaX < 0 || almaY < 0 || ujra){
-//             ujra = false;
-//             almaX = Math.floor(Math.random() * 17);
-//             almaY = Math.floor(Math.random() * 17);
-//             if(kigyoX.includes(almaX)){
-//                 let index = 0;
-//                 kigyoX.forEach(e => {
-//                     if(almaX == e && almaY == kigyoY[index]){
-//                         ujra = true;
-//                     }
-//                     index++;
-//                 });
-//             }
-
-//             if(almakX.includes(almaX)){
-//                 let index = 0;
-//                 almakX.forEach(e => {
-//                     if(almaX == e && almaY == almakY[index]){
-//                         ujra = true;
-//                     }
-//                     index++;
-//                 });
-//             }
-    
-//         }
-//         almak.push(almaX*50);
-//         almak.push(almaY*50);
-    
-//         context.fillStyle = "red";
-//         context.fillRect(almaX*50, almaY*50, 50, 50);
-//     }
-// }
 
 function KigyoFill(){
     let szinseged = 155;
@@ -108,7 +52,7 @@ function KigyoFill(){
         else {
             context.fillStyle = `rgb(85, ${szinseged}, 75)`
         };
-        context.fillRect(kigyo[i], kigyo[i+1], 50, 50)
+        context.fillRect(window.kigyo[i], window.kigyo[i+1], 50, 50)
         szinseged += 25
         if(szinseged == 280) szinseged = 155;
     }
@@ -121,7 +65,7 @@ let yIrany = 0;
 async function Jatek(){
     jatekGomb.removeEventListener('click',Jatek);
     almaGen();
-    while(jatek){
+    while(window.jatek){
         await delay(250);
     
         if(irany == "fel") {
@@ -141,17 +85,17 @@ async function Jatek(){
             yIrany = 0;
         };
 
-        let kovX = kigyo[(hossz*2)-2]+xIrany;
-        let kovY = kigyo[(hossz*2)-1]+yIrany;
+        let kovX = window.kigyo[(hossz*2)-2]+xIrany;
+        let kovY = window.kigyo[(hossz*2)-1]+yIrany;
 
-        let kovX2 = kigyo[(hossz*2)-2];
-        let kovY2 = kigyo[(hossz*2)-1];
+        let kovX2 = window.kigyo[(hossz*2)-2];
+        let kovY2 = window.kigyo[(hossz*2)-1];
 
         let kigyoX = [];
         let kigyoY = [];
     
         let seged = true;
-        kigyo.forEach(e => {
+        window.kigyo.forEach(e => {
             if(seged) {
                 seged = false;
                 kigyoX.push(e);
@@ -182,55 +126,35 @@ async function Jatek(){
             });
         }
 
-        //alma
-        //let index = 0;
-        // almakX.forEach(e => {
-        //     //lefut amikor nem kéne
-        //     if(kovX/50 == e && kovY/50 == almakY[index] && !vettFelAlmat){
-        //         kigyoNo = true;
-        //         vettFelAlmat = true;
-        //         hossz++;
-        //         kigyo.push(almakX[index]*50);
-        //         kigyo.push(almakY[index]*50);
-        //         almak.splice(index,2);
-        //         score++;
-        //         scoreKiir.innerHTML = score;
-        //         almaGen();
-        //     }
-        //     index++;
-        // });
-        
-        //vettFelAlmat = false;
-
-        if(alma[0] == kigyo[(hossz*2)-2]+xIrany && alma[1] == kigyo[(hossz*2)-1]+yIrany){
+        if(window.alma[0] == window.kigyo[(hossz*2)-2]+xIrany && window.alma[1] == window.kigyo[(hossz*2)-1]+yIrany){
             kigyoNo = true;
             hossz++;
-            kigyo.push(alma[0]);
-            kigyo.push(alma[1]);
+            window.kigyo.push(window.alma[0]);
+            window.kigyo.push(window.alma[1]);
             score++;
             scoreKiir.innerHTML = score;
             almaGen();
         }
 
         if(!kigyoNo){
-            kigyo.push(kovX);
-            kigyo.push(kovY);
+            window.kigyo.push(kovX);
+            window.kigyo.push(kovY);
         }
     
         if(kigyoNo) kigyoNo = false;
         else {
-            if(jatek && !neFill){
-                context.clearRect(kigyo[0], kigyo[1], 50, 50);
+            if(window.jatek && !neFill){
+                context.clearRect(window.kigyo[0], window.kigyo[1], 50, 50);
     
                 context.beginPath();
                 context.strokeStyle = 'black';
-                context.rect(kigyo[0], kigyo[1], 50, 50);
+                context.rect(window.kigyo[0], window.kigyo[1], 50, 50);
                 context.stroke();
                 
-                kigyo.splice(0,2)
+                window.kigyo.splice(0,2)
             }
         };
-        if(jatek && !neFill) KigyoFill();
+        if(window.jatek && !neFill) KigyoFill();
 
         voltInput = false;
     }
@@ -258,40 +182,40 @@ document.addEventListener('keydown', function(e) {
 function UjJatek(){
     jatekGomb.removeEventListener('click', UjJatek);
     Clear();
-    alma = [];
-    kigyo = [400, 500, 400, 450, 400, 400, 400, 350];
+    window.alma = [];
+    window.kigyo = [400, 500, 400, 450, 400, 400, 400, 350];
     KigyoFill();
     score = 0;
     scoreKiir.innerHTML = score;
     irany = "fel";
     hossz = 4;
-    jatek = true;
+    window.jatek = true;
     Jatek();
 }
 
 function Clear(){
-    for (let i = 0; i < kigyo.length; i+=2) {
-        context.clearRect(kigyo[i], kigyo[i+1], 50, 50);
+    for (let i = 0; i < window.kigyo.length; i+=2) {
+        context.clearRect(window.kigyo[i], window.kigyo[i+1], 50, 50);
     
         context.beginPath();
         context.strokeStyle = 'black';
-        context.rect(kigyo[i], kigyo[i+1], 50, 50);
+        context.rect(window.kigyo[i], window.kigyo[i+1], 50, 50);
         context.stroke();
     }
 
-    context.clearRect(alma[0], alma[1], 50, 50);
+    context.clearRect(window.alma[0], window.alma[1], 50, 50);
     
     context.beginPath();
     context.strokeStyle = 'black';
-    context.rect(alma[0], alma[1], 50, 50);
+    context.rect(window.alma[0], window.alma[1], 50, 50);
     context.stroke();
     
-    kigyo.splice(0,2)
+    window.kigyo.splice(0,2)
 }
 
 function halal(){
     halalKiir.innerHTML = "Meghaltál!";
-    jatek = false;
+    window.jatek = false;
     jatekGomb.value = "Új játék";
     jatekGomb.addEventListener('click', UjJatek);
 }
@@ -300,14 +224,14 @@ function KigyoVissza(){
     console.log(1)
     let seged = true;
     let index = 0;
-    kigyo.forEach(e => {
+    window.kigyo.forEach(e => {
         if(seged) {
             seged = false;
-            kigyo[index]-=xIrany;
+            window.kigyo[index]-=xIrany;
         }
         else{
             seged = true;
-            kigyo[index]-=yIrany;
+            window.kigyo[index]-=yIrany;
         };
         index++;
     });
