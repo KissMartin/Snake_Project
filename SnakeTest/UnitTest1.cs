@@ -46,6 +46,17 @@ namespace SnakeTest
             int appleX = Convert.ToInt32(currentApple[0]);
             int appleY = Convert.ToInt32(currentApple[1]);
             executor.ExecuteScript($"window.context.clearRect({appleX}, {appleY}, 50, 50)");
+            ReCreateBorder(appleX, appleY);
+        }
+
+        private void ReCreateBorder(int appleX, int appleY)
+        {
+            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
+
+            executor.ExecuteScript("window.context.beginPath()");
+            executor.ExecuteScript("window.context.strokeStyle = 'black'");
+            executor.ExecuteScript($"window.context.rect({appleX}, {appleY}, 50, 50)");
+            executor.ExecuteScript("window.context.stroke()");
         }
 
         private void StartSnake()
@@ -68,7 +79,7 @@ namespace SnakeTest
         {
             StartSnake();
 
-            //ClearDefaultApple();
+            ClearDefaultApple();
 
             GenNewApple(400, 250);
             

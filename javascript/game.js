@@ -4,7 +4,8 @@ let halalKiir = document.querySelector('.halalKiir');
 let jatekGomb = document.querySelector('.jatekGomb');
 window.jatek = true;
 let hossz = 4;
-window.almaMax = (canvas.width/50) * (canvas.height/50) - hossz;
+// window.almaMax = (canvas.width/50) * (canvas.height/50) - hossz;
+window.almaMax = 2;
 let felvettAlmak = 0;
 console.log(almaMax)
 let voltInput = false;
@@ -168,6 +169,7 @@ async function Jatek(){
 
         if(almaMax == felvettAlmak){
             halalKiir.innerHTML = "Nyertél";
+            window.jatek = false;
         }
 
         voltInput = false;
