@@ -4,8 +4,6 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
-using Xunit;
-using OpenQA.Selenium.Support.Extensions;
 using System.Collections.ObjectModel;
 
 namespace SnakeTest
@@ -31,11 +29,9 @@ namespace SnakeTest
 
         private void GenNewApple(int x, int y)
         {
-            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-
-            executor.ExecuteScript($"window.alma = [{x}, {y}];");
-            executor.ExecuteScript("window.context.fillStyle = 'red'");
-            executor.ExecuteScript($"window.context.fillRect({x}, {y}, 50, 50)");
+            driver.ExecuteScript($"window.alma = [{x}, {y}];");
+            driver.ExecuteScript("window.context.fillStyle = 'red'");
+            driver.ExecuteScript($"window.context.fillRect({x}, {y}, 50, 50)");
         }
 
         private void ClearDefaultApple()
@@ -51,18 +47,47 @@ namespace SnakeTest
 
         private void ReCreateBorder(int appleX, int appleY)
         {
-            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-
-            executor.ExecuteScript("window.context.beginPath()");
-            executor.ExecuteScript("window.context.strokeStyle = 'black'");
-            executor.ExecuteScript($"window.context.rect({appleX}, {appleY}, 50, 50)");
-            executor.ExecuteScript("window.context.stroke()");
+            driver.ExecuteScript("window.context.beginPath()");
+            driver.ExecuteScript("window.context.strokeStyle = 'black'");
+            driver.ExecuteScript($"window.context.rect({appleX}, {appleY}, 50, 50)");
+            driver.ExecuteScript("window.context.stroke()");
         }
 
         private void StartSnake()
         {
             var startButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("jatekGomb")));
             startButton.Click();
+        }
+
+        [Fact]
+        public void TestInput()
+        {
+            StartSnake();
+
+            driver.FindElement(By.TagName("body")).SendKeys(Keys.ArrowLeft);
+            Assert.Equal("bal", driver.ExecuteScript("return window.irany"));
+            Thread.Sleep(600);
+            driver.FindElement(By.TagName("body")).SendKeys(Keys.ArrowDown);
+            Assert.Equal("le", driver.ExecuteScript("return window.irany"));
+            Thread.Sleep(600);
+            driver.FindElement(By.TagName("body")).SendKeys(Keys.ArrowRight);
+            Assert.Equal("jobb", driver.ExecuteScript("return window.irany"));
+            Thread.Sleep(600);
+            driver.FindElement(By.TagName("body")).SendKeys(Keys.ArrowUp);
+            Assert.Equal("fel", driver.ExecuteScript("return window.irany"));
+            Thread.Sleep(600);
+        }
+
+        [Fact]
+        public void TestSnakeLengthIncremention()
+        {
+            StartSnake();
+
+            ClearDefaultApple();
+
+            GenNewApple(400, 200);
+
+            Assert.Equal(5, driver.ExecuteScript("return window.hossz"));
         }
 
         [Fact]
@@ -95,7 +120,9 @@ namespace SnakeTest
         {
             StartSnake();
 
-            ((IJavaScriptExecutor)driver).ExecuteScript("window.alma = [400, 200];");
+            ClearDefaultApple();
+
+            GenNewApple(400, 200);
 
             Thread.Sleep(1500);
 

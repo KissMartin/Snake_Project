@@ -3,13 +3,11 @@ window.context = canvas.getContext('2d');
 let halalKiir = document.querySelector('.halalKiir');
 let jatekGomb = document.querySelector('.jatekGomb');
 window.jatek = true;
-let hossz = 4;
-// window.almaMax = (canvas.width/50) * (canvas.height/50) - hossz;
-window.almaMax = 2;
+window.hossz = 4;
+window.almaMax = (canvas.width/50) * (canvas.height/50) - window.hossz;
 let felvettAlmak = 0;
-console.log(almaMax)
 let voltInput = false;
-let irany = "fel";
+window.irany = "fel";
 let neFill = false;
 let score = 0;
 let scoreKiir = document.querySelector('#score');
@@ -57,8 +55,8 @@ function almaGen(inputX = null, inputY = null){
 
 function KigyoFill(){
     let szinseged = 155;
-    for(let i = 0; i < hossz*2; i += 2){
-        if(i == hossz*2-2) window.context.fillStyle = "yellow";
+    for(let i = 0; i < window.hossz*2; i += 2){
+        if(i == window.hossz*2-2) window.context.fillStyle = "yellow";
         else {
             window.context.fillStyle = `rgb(85, ${szinseged}, 75)`
         };
@@ -78,28 +76,28 @@ async function Jatek(){
     while(window.jatek){
         await delay(250);
     
-        if(irany == "fel") {
+        if(window.irany == "fel") {
             yIrany = -50;
             xIrany = 0;
         };
-        if(irany == "le") {
+        if(window.irany == "le") {
             yIrany = 50;
             xIrany = 0;
         };
-        if(irany == "jobb") {
+        if(window.irany == "jobb") {
             xIrany = 50;
             yIrany = 0;
         };
-        if(irany == "bal") {
+        if(window.irany == "bal") {
             xIrany = -50;
             yIrany = 0;
         };
 
-        let kovX = window.kigyo[(hossz*2)-2]+xIrany;
-        let kovY = window.kigyo[(hossz*2)-1]+yIrany;
+        let kovX = window.kigyo[(window.hossz*2)-2]+xIrany;
+        let kovY = window.kigyo[(window.hossz*2)-1]+yIrany;
 
-        let kovX2 = window.kigyo[(hossz*2)-2];
-        let kovY2 = window.kigyo[(hossz*2)-1];
+        let kovX2 = window.kigyo[(window.hossz*2)-2];
+        let kovY2 = window.kigyo[(window.hossz*2)-1];
 
         let kigyoX = [];
         let kigyoY = [];
@@ -121,7 +119,7 @@ async function Jatek(){
             halal();
         }
 
-        if((kovX2 == 0 && irany == "bal")||(kovX2 == 800 && irany == "jobb")||(kovY2 == 0 && irany == "fel")||(kovY2 == 800 && irany == "le")){
+        if((kovX2 == 0 && window.irany == "bal")||(kovX2 == 800 && window.irany == "jobb")||(kovY2 == 0 && window.irany == "fel")||(kovY2 == 800 && window.irany == "le")){
             neFill = true;
         }
         else neFill = false;
@@ -136,9 +134,9 @@ async function Jatek(){
             });
         }
 
-        if(window.alma[0] == window.kigyo[(hossz*2)-2]+xIrany && window.alma[1] == window.kigyo[(hossz*2)-1]+yIrany){
+        if(window.alma[0] == window.kigyo[(window.hossz*2)-2]+xIrany && window.alma[1] == window.kigyo[(window.hossz*2)-1]+yIrany){
             kigyoNo = true;
-            hossz++;
+            window.hossz++;
             window.kigyo.push(window.alma[0]);
             window.kigyo.push(window.alma[1]);
             score++;
@@ -177,20 +175,20 @@ async function Jatek(){
 }
 
 document.addEventListener('keydown', function(e) {
-    if (e.key == 'ArrowLeft' && irany != "jobb" && !voltInput) {
-        irany = "bal";
+    if (e.key == 'ArrowLeft' && window.irany != "jobb" && !voltInput) {
+        window.irany = "bal";
         voltInput = true;
     }
-    else if (e.key == 'ArrowDown' && irany != "fel" && !voltInput) {
-        irany = "le";
+    else if (e.key == 'ArrowDown' && window.irany != "fel" && !voltInput) {
+        window.irany = "le";
         voltInput = true;
     }
-    else if (e.key == 'ArrowRight' && irany != "bal" && !voltInput) {
-        irany = "jobb";
+    else if (e.key == 'ArrowRight' && window.irany != "bal" && !voltInput) {
+        window.irany = "jobb";
         voltInput = true;
     }
-    else if (e.key == 'ArrowUp' && irany != "le" && !voltInput) {
-        irany = "fel";
+    else if (e.key == 'ArrowUp' && window.irany != "le" && !voltInput) {
+        window.irany = "fel";
         voltInput = true;
     }
 });
@@ -203,8 +201,8 @@ function UjJatek(){
     KigyoFill();
     score = 0;
     scoreKiir.innerHTML = score;
-    irany = "fel";
-    hossz = 4;
+    window.irany = "fel";
+    window.hossz = 4;
     window.jatek = true;
     Jatek();
 }
