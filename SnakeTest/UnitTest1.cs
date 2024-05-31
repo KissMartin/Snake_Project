@@ -86,8 +86,9 @@ namespace SnakeTest
             ClearDefaultApple();
 
             GenNewApple(400, 200);
+            Thread.Sleep(1500);
 
-            Assert.Equal(5, driver.ExecuteScript("return window.hossz"));
+            Assert.Equal("5", driver.ExecuteScript("return window.hossz").ToString());
         }
 
         [Fact]
@@ -161,7 +162,7 @@ namespace SnakeTest
         [Fact]
         public void TestGameEndsWithWin()
         {
-            driver.ExecuteScript("window.almakMax = 2;");
+            driver.ExecuteScript("window.almaMax = 2;");
 
             StartSnake();
             ClearDefaultApple();
