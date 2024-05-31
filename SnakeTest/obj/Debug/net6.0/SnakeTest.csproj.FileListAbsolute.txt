@@ -212,3 +212,4 @@ Z:\___Prog\11A_Kiss_Martin\Web\_Dogák_Projektek\Snake_Project\SnakeTest\obj\Deb
 Z:\___Prog\11A_Kiss_Martin\Web\_Dogák_Projektek\Snake_Project\SnakeTest\obj\Debug\net6.0\SnakeTest.pdb
 Z:\___Prog\11A_Kiss_Martin\Web\_Dogák_Projektek\Snake_Project\SnakeTest\obj\Debug\net6.0\SnakeTest.genruntimeconfig.cache
 Z:\___Prog\11A_Kiss_Martin\Web\_Dogák_Projektek\Snake_Project\SnakeTest\obj\Debug\net6.0\ref\SnakeTest.dll
+C:\Users\Martin\Documents\___Prog\Github projects\Snake_Project\SnakeTest\bin\Debug\net6.0\SeleniumExtras.WaitHelpers.dll

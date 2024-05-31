@@ -1,5 +1,5 @@
 var canvas = document.getElementById('gameCanvas');
-var context = canvas.getContext('2d');
+window.context = canvas.getContext('2d');
 let halalKiir = document.querySelector('.halalKiir');
 let jatekGomb = document.querySelector('.jatekGomb');
 window.jatek = true;
@@ -50,18 +50,18 @@ function almaGen(inputX = null, inputY = null){
     window.alma[0] = almaX*50;
     window.alma[1] = almaY*50;
 
-    context.fillStyle = "red";
-    context.fillRect(window.alma[0], window.alma[1], 50, 50);
+    window.context.fillStyle = "red";
+    window.context.fillRect(window.alma[0], window.alma[1], 50, 50);
 }
 
 function KigyoFill(){
     let szinseged = 155;
     for(let i = 0; i < hossz*2; i += 2){
-        if(i == hossz*2-2) context.fillStyle = "yellow";
+        if(i == hossz*2-2) window.context.fillStyle = "yellow";
         else {
-            context.fillStyle = `rgb(85, ${szinseged}, 75)`
+            window.context.fillStyle = `rgb(85, ${szinseged}, 75)`
         };
-        context.fillRect(window.kigyo[i], window.kigyo[i+1], 50, 50)
+        window.context.fillRect(window.kigyo[i], window.kigyo[i+1], 50, 50)
         szinseged += 25
         if(szinseged == 280) szinseged = 155;
     }
@@ -154,12 +154,12 @@ async function Jatek(){
         if(kigyoNo) kigyoNo = false;
         else {
             if(window.jatek && !neFill){
-                context.clearRect(window.kigyo[0], window.kigyo[1], 50, 50);
+                window.context.clearRect(window.kigyo[0], window.kigyo[1], 50, 50);
     
-                context.beginPath();
-                context.strokeStyle = 'black';
-                context.rect(window.kigyo[0], window.kigyo[1], 50, 50);
-                context.stroke();
+                window.context.beginPath();
+                window.context.strokeStyle = 'black';
+                window.context.rect(window.kigyo[0], window.kigyo[1], 50, 50);
+                window.context.stroke();
                 
                 window.kigyo.splice(0,2)
             }
@@ -209,20 +209,20 @@ function UjJatek(){
 
 function Clear(){
     for (let i = 0; i < window.kigyo.length; i+=2) {
-        context.clearRect(window.kigyo[i], window.kigyo[i+1], 50, 50);
+        window.context.clearRect(window.kigyo[i], window.kigyo[i+1], 50, 50);
     
-        context.beginPath();
-        context.strokeStyle = 'black';
-        context.rect(window.kigyo[i], window.kigyo[i+1], 50, 50);
-        context.stroke();
+        window.context.beginPath();
+        window.context.strokeStyle = 'black';
+        window.context.rect(window.kigyo[i], window.kigyo[i+1], 50, 50);
+        window.context.stroke();
     }
 
-    context.clearRect(window.alma[0], window.alma[1], 50, 50);
+    window.context.clearRect(window.alma[0], window.alma[1], 50, 50);
     
-    context.beginPath();
-    context.strokeStyle = 'black';
-    context.rect(window.alma[0], window.alma[1], 50, 50);
-    context.stroke();
+    window.context.beginPath();
+    window.context.strokeStyle = 'black';
+    window.context.rect(window.alma[0], window.alma[1], 50, 50);
+    window.context.stroke();
     
     window.kigyo.splice(0,2)
 }
