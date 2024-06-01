@@ -27,21 +27,20 @@ namespace SnakeTest
             driver.Quit();
         }
 
-        private void GenNewApple(int x, int y)
+        private void GenNewApple(int x, int y, int sleepTime)
         {
             driver.ExecuteScript($"window.alma = [{x}, {y}];");
             driver.ExecuteScript("window.context.fillStyle = 'red'");
             driver.ExecuteScript($"window.context.fillRect({x}, {y}, 50, 50)");
+            Thread.Sleep(sleepTime);
         }
 
         private void ClearDefaultApple()
-        {
-            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-
+        { 
             var currentApple = (ReadOnlyCollection<object>)driver.ExecuteScript("return window.alma;");
             int appleX = Convert.ToInt32(currentApple[0]);
             int appleY = Convert.ToInt32(currentApple[1]);
-            executor.ExecuteScript($"window.context.clearRect({appleX}, {appleY}, 50, 50)");
+            driver.ExecuteScript($"window.context.clearRect({appleX}, {appleY}, 50, 50)");
             ReCreateBorder(appleX, appleY);
         }
 
@@ -85,8 +84,7 @@ namespace SnakeTest
 
             ClearDefaultApple();
 
-            GenNewApple(400, 200);
-            Thread.Sleep(1500);
+            GenNewApple(400, 200, 1500);
 
             Assert.Equal("5", driver.ExecuteScript("return window.hossz").ToString());
         }
@@ -107,9 +105,7 @@ namespace SnakeTest
 
             ClearDefaultApple();
 
-            GenNewApple(400, 250);
-            
-            Thread.Sleep(1500);
+            GenNewApple(400, 250, 1500);
 
             var apples = driver.ExecuteScript("return window.alma;");
             Assert.NotNull(apples);
@@ -123,9 +119,7 @@ namespace SnakeTest
 
             ClearDefaultApple();
 
-            GenNewApple(400, 200);
-
-            Thread.Sleep(1500);
+            GenNewApple(400, 200, 1500);
 
             var score = driver.FindElement(By.Id("score")).Text;
             Assert.Equal("1", score);
@@ -167,13 +161,11 @@ namespace SnakeTest
             StartSnake();
             ClearDefaultApple();
 
-            GenNewApple(400, 250);
-            Thread.Sleep(1000);
+            GenNewApple(400, 250, 1000);
 
             ClearDefaultApple();
 
-            GenNewApple(400, 100);
-            Thread.Sleep(1000);
+            GenNewApple(400, 100, 1000);
 
             var score = driver.FindElement(By.Id("score")).Text;
             Assert.Equal("2", score);
